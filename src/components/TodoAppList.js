@@ -1,24 +1,22 @@
-import React from 'react';
-import TodoAppListItem from "./TodoAppListItem";
-import {connect} from "react-redux";
-
-const TodoAppList = ({todos}) => {
+import React from 'react'
+import TodoAppListItem from "./TodoAppListItem"
+import {connect} from "react-redux"
+import { List } from "@material-ui/core";
+const TodoAppList = (props) => {
     return (
-        <div>
+        <List>
             {
-                todos.map((todo) => {
-                    return <TodoAppListItem {...todo} />
+                props.todos.map((todo)=>{
+                    return <TodoAppListItem {...todo}/>
                 })
             }
-        </div>
-    );
-};
-
-const mapStateToProps = (state) => {
+        </List> 
+    )
+}
+const mapStateToProps = (state) =>{
     return {
         todos: state.todoReducer
     }
 }
 
-
-export default connect(mapStateToProps)(TodoAppList);
+export default connect(mapStateToProps)(TodoAppList)
