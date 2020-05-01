@@ -1,45 +1,46 @@
-import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {addTodo} from "../redux/actions";
-
-class TodoAppAdd extends Component{
-    constructor(props){
-        super(props);
+import React, { Component } from 'react';
+import { Button, TextField } from "@material-ui/core";
+import { connect } from "react-redux"
+import { addTodo } from "../redux/actions"
+class TodoAppAdd extends Component {
+    constructor(props) {
+        super(props)
 
         this.state = {
             value: ""
         }
     }
 
-    render(){
+    render() {
         return (
             <div>
-                <form onSubmit={(e) => {
-                    /// formun default davranisi olan sayfa yenileme ve post etmeyi engelliyorum
+                <form className="todo-form" onSubmit={(e) => {
                     e.preventDefault();
-                    // statete tuttugum inputu son degerini aliyorum
                     const newContent = this.state.value;
-                    this.props.addTodo(newContent);
+                    this.props.addTodo(newContent)
+                    this.setState({
+                        value: ""
+                    })
                 }}>
-                    <input
-                        type="text"
-                        placeholder="Todo Giriniz"
+                    <TextField type="text"
+                        placeholder="Add Todo"
+                        label="Task"
                         value={this.state.value}
                         onChange={(e) => {
                             this.setState({
-                                value: e.target.value
+                                value: e.target.value,
                             })
                         }}
                     />
-                    <button type="submit">Todo Ekle</button>
+                    <Button disabled={!this.state.value} type="submit">Submit</Button>
                 </form>
             </div>
         );
     }
 }
-
 const mapDispatchToProps = {
     addTodo: addTodo
-};
+}
 
 export default connect(null, mapDispatchToProps)(TodoAppAdd);
+
